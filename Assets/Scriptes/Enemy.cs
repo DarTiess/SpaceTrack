@@ -11,6 +11,8 @@ public class Enemy : MonoBehaviour
     public float health = 10f;
     public int score;
 
+
+
     public Vector3 position
     {
         get
@@ -22,10 +24,18 @@ public class Enemy : MonoBehaviour
             this.transform.position = value;
         }
     }
- 
+
     void Update()
     {
         Move();
+
+        Vector2 min = Camera.main.ViewportToWorldPoint(new Vector2(0, 0));
+        Vector2 max = Camera.main.ViewportToWorldPoint(new Vector2(1, 1));
+    
+
+        if (transform.position.y > max.y  || transform.position.y<=min.y) {
+            Destroy(this.gameObject);
+            }
     }
     public virtual void Move()
     {
@@ -33,4 +43,6 @@ public class Enemy : MonoBehaviour
         tempPosition.y -= speed * Time.deltaTime;
         position = tempPosition;
     }
+
+   
 }

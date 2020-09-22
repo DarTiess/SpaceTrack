@@ -14,6 +14,9 @@ public class Hero : MonoBehaviour
 
     public float shielLevel = 1;
 
+    public GameObject projectillePrefab;
+    public float projectilleSpeed = 40f;
+    public List<GameObject> pointShut;
 
     private void Awake()
     {
@@ -52,6 +55,19 @@ public class Hero : MonoBehaviour
             transform.position = position;
 
             transform.rotation = Quaternion.Euler(vertInput * pitchMult, horInput * rollMult, 0);
+        }
+    }
+
+
+    public void onClickFire()
+    {
+        GameObject[] projectille = { Instantiate<GameObject>(projectillePrefab), Instantiate<GameObject>(projectillePrefab) };
+
+        for(int i=0;i< pointShut.Count;i++) {
+        projectille[i].transform.position = pointShut[i].transform.position;
+
+        Rigidbody rigidbody = projectille[i].GetComponent<Rigidbody>();
+        rigidbody.velocity = Vector3.up * projectilleSpeed; 
         }
     }
 }
